@@ -2165,7 +2165,23 @@ var title = require('title');
 page('/', function (ctx, next) {
   title('Platzigram');
   var main = document.getElementById('main-container');
-  var pictures = [1, 2, 3, 4, 5];
+  var pictures = [{
+    user: {
+      username: 'jchavez',
+      avatar: 'https://scontent-mia1-1.xx.fbcdn.net/v/t1.0-9/12079593_969515883106158_4844739139114744259_n.jpg?oh=94afca46b4ebb5d2147322b10afdc4c7&oe=579EF454'
+    },
+    url: 'http://materializecss.com/images/office.jpg',
+    likes: 1024,
+    liked: true
+  }, {
+    user: {
+      username: 'cchava',
+      avatar: 'https://scontent-mia1-1.xx.fbcdn.net/v/t1.0-1/c0.0.100.100/p100x100/21597_1172239236122768_474663642958641327_n.jpg?oh=dabb2c8445e617f492b390818edc079c&oe=57E58B7E'
+    },
+    url: 'http://materializecss.com/images/sample-1.jpg',
+    likes: 320,
+    liked: false
+  }];
   empty(main).appendChild(template(pictures));
 });
 
@@ -2179,7 +2195,7 @@ module.exports = function (pictures) {
     <div class="row">
       <div class="col s12 m10 offset-m1 l6 offset-l3">
         ${ pictures.map(function (pic) {
-    return picture;
+    return picture(pic);
   }) }
       </div>
     </div>
@@ -2247,14 +2263,24 @@ module.exports = function layout(content) {
 },{"yo-yo":8}],20:[function(require,module,exports){
 var yo = require('yo-yo');
 
-module.exports = yo`<div class="card">
-    <div class="card-image">
-      <img class="activator" src="http://materializecss.com/images/office.jpg">
-    </div>
-    <div class="card-content">
-      <span class="card-title">Card Title</span>
-    </div>
-  </div>`;
+module.exports = function (pic) {
+  return yo`<div class="card">
+      <div class="card-image">
+        <img class="activator" src="${ pic.url }">
+      </div>
+      <div class="card-content">
+        <a href="/user/${ pic.user.username }" class="card-title">
+          <img src="${ pic.user.avatar }" class="avatar" />
+          <span class="username">${ pic.user.username }</span>
+        </a>
+        <small class="right time">Hace 1 día</small>
+        <p>
+          <a class="left" href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+          <span class="left likes">${ pic.likes } me gusta </span>
+        </p>
+      </div>
+    </div>`;
+};
 
 },{"yo-yo":8}],21:[function(require,module,exports){
 var page = require('page');
