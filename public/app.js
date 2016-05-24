@@ -2165,24 +2165,29 @@ var title = require('title');
 page('/', function (ctx, next) {
   title('Platzigram');
   var main = document.getElementById('main-container');
-  empty(main).appendChild(template);
+  var pictures = [1, 2, 3, 4, 5];
+  empty(main).appendChild(template(pictures));
 });
 
 },{"./template":16,"empty-element":3,"page":4,"title":7}],16:[function(require,module,exports){
 var yo = require('yo-yo');
 var layout = require('../layout');
+var picture = require('../picture-card');
 
-var template = yo`<div class="container timeline">
-  <div class="row">
-    <div class="col s12 m10 offset-m1 l6 offset-l3">
-      Contenido
+module.exports = function (pictures) {
+  var el = yo`<div class="container timeline">
+    <div class="row">
+      <div class="col s12 m10 offset-m1 l6 offset-l3">
+        ${ pictures.map(function (pic) {
+    return picture;
+  }) }
+      </div>
     </div>
-  </div>
-</div>`;
+  </div>`;
+  return layout(el);
+};
 
-module.exports = layout(template);
-
-},{"../layout":19,"yo-yo":8}],17:[function(require,module,exports){
+},{"../layout":19,"../picture-card":20,"yo-yo":8}],17:[function(require,module,exports){
 var page = require('page');
 
 require('./homepage');
@@ -2191,11 +2196,11 @@ require('./signin');
 
 page();
 
-},{"./homepage":15,"./signin":20,"./signup":22,"page":4}],18:[function(require,module,exports){
+},{"./homepage":15,"./signin":21,"./signup":23,"page":4}],18:[function(require,module,exports){
 var yo = require('yo-yo');
 
 module.exports = function landing(box) {
-  return yo`<div class="container landing">
+  return yo`<div class="container">
     <div class="row">
       <div class="col s10 push-s1">
         <div class="row">
@@ -2240,6 +2245,18 @@ module.exports = function layout(content) {
 };
 
 },{"yo-yo":8}],20:[function(require,module,exports){
+var yo = require('yo-yo');
+
+module.exports = yo`<div class="card">
+    <div class="card-image">
+      <img class="activator" src="http://materializecss.com/images/office.jpg">
+    </div>
+    <div class="card-content">
+      <span class="card-title">Card Title</span>
+    </div>
+  </div>`;
+
+},{"yo-yo":8}],21:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
@@ -2251,7 +2268,7 @@ page('/signin', function (ctx, next) {
   empty(main).appendChild(template);
 });
 
-},{"./template":21,"empty-element":3,"page":4,"title":7}],21:[function(require,module,exports){
+},{"./template":22,"empty-element":3,"page":4,"title":7}],22:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 
@@ -2283,7 +2300,7 @@ var signinForm = yo`<div class="col s12 m7">
 
 module.exports = landing(signinForm);
 
-},{"../landing":18,"yo-yo":8}],22:[function(require,module,exports){
+},{"../landing":18,"yo-yo":8}],23:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
@@ -2295,7 +2312,7 @@ page('/signup', function (ctx, next) {
   empty(main).appendChild(template);
 });
 
-},{"./template":23,"empty-element":3,"page":4,"title":7}],23:[function(require,module,exports){
+},{"./template":24,"empty-element":3,"page":4,"title":7}],24:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 
