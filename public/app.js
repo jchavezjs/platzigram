@@ -2170,30 +2170,19 @@ page('/', function (ctx, next) {
 
 },{"./template":16,"empty-element":3,"page":4,"title":7}],16:[function(require,module,exports){
 var yo = require('yo-yo');
+var layout = require('../layout');
 
-var template = yo`<nav class="header">
-  <div class="nav-wrapper">
-    <div class="container">
-      <div class="row">
-        <div class="col s12 m6 offset-m1">
-          <a href="/" class="brand-logo platzigram">Platzigram</a>
-        </div>
-        <div class="col s2 m6 push-m10">
-          <a href="#" class="btn btn-large btn-flat dropdown-button" data-activates="drop-users">
-            <i class="fa fa-user" aria hidden="true"></i>
-          </a>
-          <ul id="drop-users" class="dropdown-content">
-            <li><a href="#">Salir</a>
-          </ul>
-        </div>
-      </div>
+var template = yo`<div class="container timeline">
+  <div class="row">
+    <div class="col s12 m10 offset-m1 l6 offset-l3">
+      Contenido
     </div>
   </div>
-</nav>`;
+</div>`;
 
-module.exports = template;
+module.exports = layout(template);
 
-},{"yo-yo":8}],17:[function(require,module,exports){
+},{"../layout":19,"yo-yo":8}],17:[function(require,module,exports){
 var page = require('page');
 
 require('./homepage');
@@ -2202,11 +2191,11 @@ require('./signin');
 
 page();
 
-},{"./homepage":15,"./signin":19,"./signup":21,"page":4}],18:[function(require,module,exports){
+},{"./homepage":15,"./signin":20,"./signup":22,"page":4}],18:[function(require,module,exports){
 var yo = require('yo-yo');
 
 module.exports = function landing(box) {
-  return yo`<div class="container">
+  return yo`<div class="container landing">
     <div class="row">
       <div class="col s10 push-s1">
         <div class="row">
@@ -2221,6 +2210,36 @@ module.exports = function landing(box) {
 };
 
 },{"yo-yo":8}],19:[function(require,module,exports){
+var yo = require('yo-yo');
+
+module.exports = function layout(content) {
+  return yo`<div id="wrap">
+    <nav class="header">
+      <div class="nav-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col s12 m6 offset-m1">
+              <a href="/" class="brand-logo platzigram">Platzigram</a>
+            </div>
+            <div class="col s2 m6 push-m10">
+              <a href="#" class="btn btn-large btn-flat dropdown-button" data-activates="drop-users">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </a>
+              <ul id="drop-users" class="dropdown-content">
+                <li><a href="#">Salir</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <article class="content">
+      ${ content }
+    </article>
+    </div>`;
+};
+
+},{"yo-yo":8}],20:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
@@ -2232,7 +2251,7 @@ page('/signin', function (ctx, next) {
   empty(main).appendChild(template);
 });
 
-},{"./template":20,"empty-element":3,"page":4,"title":7}],20:[function(require,module,exports){
+},{"./template":21,"empty-element":3,"page":4,"title":7}],21:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 
@@ -2264,7 +2283,7 @@ var signinForm = yo`<div class="col s12 m7">
 
 module.exports = landing(signinForm);
 
-},{"../landing":18,"yo-yo":8}],21:[function(require,module,exports){
+},{"../landing":18,"yo-yo":8}],22:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
@@ -2276,7 +2295,7 @@ page('/signup', function (ctx, next) {
   empty(main).appendChild(template);
 });
 
-},{"./template":22,"empty-element":3,"page":4,"title":7}],22:[function(require,module,exports){
+},{"./template":23,"empty-element":3,"page":4,"title":7}],23:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 
